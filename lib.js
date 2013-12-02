@@ -1,5 +1,5 @@
 //整数で商を返す
-Number.prototype.divInt(a){
+Number.prototype.divInt = function(a){
 	return (this - this % a) / a;
 }
 //ランダムな整数を返す
@@ -191,4 +191,35 @@ Number.prototype.padding = String.prototype.padding = function(length, c){
 }
 Number.prototype.zeroPadding = String.prototype.zeroPadding = function(length){
 	return this.padding(length, 0);
+}
+
+//Union-Find
+function UnionFind(size){
+	var data = new Array(size);
+	for(var i = 0; i < size; i++)
+		data[i] = -1;
+
+	function root(x){
+		return data[x] < 0 ? x : data[x] = root(data[x]);
+	}
+	//併合
+	this.union = function(x, y){
+		x = root(x);
+		y = root(y);
+		if(x != y){
+			if(data[x] < data[y]){
+				data[x] += data[y];
+				data[y] = x;
+			}else{
+				data[y] += data[x];
+				data[x] = y;
+			}
+			return true;
+		}
+		return false;
+	}
+	//判定
+	this.find = function(x, y){
+		return root(x) == root(y);
+	}
 }
