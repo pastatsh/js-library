@@ -1,69 +1,73 @@
-//ƒ‰ƒ“ƒ_ƒ€‚È®”‚ğ•Ô‚·
+//æ•´æ•°ã§å•†ã‚’è¿”ã™
+Number.prototype.divInt(a){
+	return (this - this % a) / a;
+}
+//ãƒ©ãƒ³ãƒ€ãƒ ãªæ•´æ•°ã‚’è¿”ã™
 Math.randomInt = function(max){
 	return parseInt(Math.random() * max);
 }
-//Å‘åŒö–ñ”‚ğ•Ô‚·
+//æœ€å¤§å…¬ç´„æ•°ã‚’è¿”ã™
 Math.gcd = function(a, b){
 	return b != 0 ? Math.gcd(b, a % b) : a;
 }
-//Å¬Œö”{”‚ğ•Ô‚·
+//æœ€å°å…¬å€æ•°ã‚’è¿”ã™
 Math.lcm = function(a, b){
 	return a * b / Math.gcd(a, b);
 }
-//x^k(mod m)‚ğ•Ô‚·
+//x^k(mod m)ã‚’è¿”ã™
 Math.powMod = function(x, k, m){
 	if(k == 0) return 1;
 	if(k % 2 == 0) return Math.powMod(x * x % m, k >> 1, m);
 	return x * Math.powMod(x, k - 1, m) % m;
 }
-//ƒxƒNƒgƒ‹ƒNƒ‰ƒX
+//ãƒ™ã‚¯ãƒˆãƒ«ã‚¯ãƒ©ã‚¹
 Math.Vector = function(){
 	var arr = typeof arguments[0] == "number" ? arguments : arguments[0];
 	this.length = arr.length;
 	for(var i = 0; i < this.length; i++)
 		this[i] = arr[i];
 	
-	//ƒNƒ[ƒ“
+	//ã‚¯ãƒ­ãƒ¼ãƒ³
 	this.clone = function(){
 		return new Math.Vector(this);
 	}
-	//‰ÁZ
+	//åŠ ç®—
 	this.add = function(b){
 		var r = this.clone();
 		for(var i = 0; i < this.length; i++)
 			r[i] += b[i];
 		return r;
 	}
-	//Œ¸Z
+	//æ¸›ç®—
 	this.sub = function(b){
 		var r = this.clone();
 		for(var i = 0; i < this.length; i++)
 			r[i] -= b[i];
 		return r;
 	}
-	//æZ
+	//ä¹—ç®—
 	this.mul = function(b){
 		var r = this.clone();
 		for(var i = 0; i < this.length; i++)
 			r[i] *= b;
 		return r;
 	}
-	//œZ
+	//é™¤ç®—
 	this.div = function(b){
 		return this.mul(1 / b);
 	}
-	//‘å‚«‚³
+	//å¤§ãã•
 	this.magnitude = function(){
 		var r = 0;
 		for(var i = 0; i < this.length; i++)
 			r += this[i] * this[i];
 		return Math.sqrt(r);
 	}
-	//³‹K‰»
+	//æ­£è¦åŒ–
 	this.nomalize = function(){
 		return this.div(this.magnitude());
 	}
-	//“àÏ
+	//å†…ç©
 	this.innerProduct = function(b){
 		var r = 0;
 		for(var i = 0; i < this.length; i++)
@@ -72,7 +76,7 @@ Math.Vector = function(){
 	}
 }
 
-//—j“ú
+//æ›œæ—¥
 Date.SUN = 0;
 Date.MON = 1;
 Date.TUE = 2;
@@ -80,47 +84,43 @@ Date.WED = 3;
 Date.THU = 4;
 Date.FRI = 5;
 Date.SAT = 6;
-//—j“ú‚ğ•Ô‚·
+//æ›œæ—¥ã‚’è¿”ã™
 Date.getDayOfTheWeek = function(y, m, d){
 	if(m < 3){ y--; m += 12;}
 	var yy = parseInt(y / 100);
 	return (y + (y >> 2) - yy + (yy >> 2) + parseInt((13 * m + 8) / 5) + d) % 7;
 }
 
-//ƒeƒXƒg”z—ñ‚ğì‚é
+//ãƒ†ã‚¹ãƒˆé…åˆ—ã‚’ä½œã‚‹
 Array.makeSortedArray = function(max){
 	var array = [];
 	for(var i = 0; i < max; i++)
 		array[i] = i;
 	return array;
 }
-//ŠeX‚ğ•Ô‚·
+//æœ€å¤§å€¤ã‚’è¿”ã™
 Array.prototype.max = function(){
 	return Math.max.apply(null, this);
 }
-//Å‘å’l‚ğ•Ô‚·
-Array.prototype.max = function(){
-	return Math.max.apply(null, this);
-}
-//Å¬’l‚ğ•Ô‚·
+//æœ€å°å€¤ã‚’è¿”ã™
 Array.prototype.min = function(){
 	return Math.min.apply(null, this);
 }
-//i‚Æj‚ğ“ü‚ê‘Ö‚¦‚é
+//iã¨jã‚’å…¥ã‚Œæ›¿ãˆã‚‹
 Array.prototype.swap = function(i, j){
 	var tmp = this[i];
 	this[i] = this[j];
 	this[j] = tmp;
 }
-//ƒVƒƒƒbƒtƒ‹‚·‚é(”j‰ó“I)
+//ã‚·ãƒ£ãƒƒãƒ•ãƒ«ã™ã‚‹(ç ´å£Šçš„)
 Array.prototype.shuffle = function(){
 	for(var i = this.length - 1; i; i--)
 		this.swap(i, Math.randomInt(i + 1));
 	return array;
 }
-//“ñ•ª’Tõ
+//äºŒåˆ†æ¢ç´¢
 Array.prototype.binaryIndexOf = function(item){
-	var min = 0, max = this.length -@1;
+	var min = 0, max = this.length - 1;
 	while(min <= max){
 		var i = (min + max) >> 1;
 		if(this[i] == item) return i;
@@ -129,13 +129,13 @@ Array.prototype.binaryIndexOf = function(item){
 	}
 	return -1;
 }
-//«‘‡‚¶‚á‚È‚¢ƒ\[ƒg
+//è¾æ›¸é †ã˜ã‚ƒãªã„ã‚½ãƒ¼ãƒˆ
 Array.prototype.sortNoString = function(){
 	return this.sort(function(a, b){
 		return a < b ? -1 : (a > b ? 1 : 0);
 	});
 }
-//ƒvƒƒpƒeƒB‚Åƒ\[ƒg
+//ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã§ã‚½ãƒ¼ãƒˆ
 Array.prototype.sortOn = function(){
 	var keys = arguments;
 	return this.sort(function(a, b){
@@ -147,11 +147,11 @@ Array.prototype.sortOn = function(){
 	});
 }
 
-//ƒq[ƒv\‘¢
+//ãƒ’ãƒ¼ãƒ—æ§‹é€ 
 Heap = function(){
 	var array = [];
 	this.length = 0;
-	//’Ç‰Á‚·‚é
+	//è¿½åŠ ã™ã‚‹
 	this.push = function(item){
 		var k = this.length;
 		while(k){
@@ -163,11 +163,11 @@ Heap = function(){
 		array[k] = item;
 		this.length++;
 	}
-	//Å¬’l‚ğ•Ô‚·
+	//æœ€å°å€¤ã‚’è¿”ã™
 	this.top = function(){
 		return array[0];
 	}
-	//Å¬’l‚ğíœ‚µ‚Ä•Ô‚·
+	//æœ€å°å€¤ã‚’å‰Šé™¤ã—ã¦è¿”ã™
 	this.pop = function(){
 		this.length--;
 		var r = array[0];
@@ -184,7 +184,7 @@ Heap = function(){
 	}
 }
 
-//•¶š‚â”’l‚ğƒpƒfƒBƒ“ƒO‚µ‚Ä•Ô‚·
+//æ–‡å­—ã‚„æ•°å€¤ã‚’ãƒ‘ãƒ‡ã‚£ãƒ³ã‚°ã—ã¦è¿”ã™
 Number.prototype.padding = String.prototype.padding = function(length, c){
 	if(c == undefined) c = " ";
 	return ((new Array(length + 1)).join(c) + this).slice(-length);
